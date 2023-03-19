@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development
+      FLASK_APP: run.py
+      DATABASE_URL: postgresql://postgres:password@db:5432/mydatabase
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
